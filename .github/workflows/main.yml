@@ -38,7 +38,7 @@ jobs:
   notify_staging:
     runs-on: ubuntu-latest
     needs: staging
-    if: always()
+    if: needs.build.result != 'cancelled'
     steps:
       - name: Send Feishu Notification
         if: always()
@@ -66,7 +66,7 @@ jobs:
   notify_prod:
     runs-on: ubuntu-latest
     needs: prod
-    if: always()
+    if: needs.prod.result != 'cancelled'
     steps:
       - name: Send Feishu Notification
         if: always()
