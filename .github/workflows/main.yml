@@ -3,7 +3,7 @@ name: "Test Notification"
 on:
   workflow_dispatch:  # 允许手动触发
     inputs:
-        environment:
+      environment:
         description: 'If not provided, test will run on **staging** env.'
         required: false
         default: 'staging'
