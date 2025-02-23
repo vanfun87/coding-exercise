@@ -33,11 +33,13 @@ jobs:
           🔹 **环境**: Staging\n
           🔹 **详情**: [点击查看](${URL})"
 
+          echo "Message: ${MESSAGE}"
+
           curl -X POST "https://open.feishu.cn/open-apis/bot/v2/hook/cadf8f3a-c82e-46ee-98b8-7623f2789098" \
           -H "Content-Type: application/json" \
           -d "{
             \"msg_type\": \"text\",
             \"content\": {
-              \"text\": \"$MESSAGE\"
+              \"text\": \"${MESSAGE}\"
             }
           }"
