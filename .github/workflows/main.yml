@@ -37,4 +37,9 @@ jobs:
 
           curl -X POST "https://open.feishu.cn/open-apis/bot/v2/hook/cadf8f3a-c82e-46ee-98b8-7623f2789098" \
           -H "Content-Type: application/json" \
-          -d "{\"msg_type\": \"text\", \"content\": {\"text\": \"fang test data\"}}"
+          -d '{
+              "msg_type": "text",
+              "content": {
+                "text": "GitHub Actions 执行完成: ${{ github.repository }}\nWorkflow: ${{ github.workflow }}\nStatus: ${{ job.status }}\nURL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              }
+          }'
