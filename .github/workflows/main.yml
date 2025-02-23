@@ -1,0 +1,43 @@
+name: Job Info and Feishu Notification
+
+on:
+  push:
+    branches:
+      - main  # 触发条件：当 push 到 main 分支时执行
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  print-info:
+    runs-on: ubuntu-latest  # 使用免费 Linux 运行环境
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Print Job Information
+        run: |
+          echo "Job Name: ${{ github.job }}"
+          echo "Workflow: ${{ github.workflow }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "Trigger: ${{ github.event_name }}"
+
+      - name: Send Feishu Notification
+        if: always()
+        run: |
+          STATUS=${{ job.status }}
+          WORKFLOW="${{ github.workflow }}"
+          URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          MESSAGE="GitHub Actions 任务 **${WORKFLOW}** 运行完成 🎉\n
+          🔹 **状态**: ${STATUS}\n
+          🔹 **环境**: Staging\n
+          🔹 **详情**: [点击查看](${URL})"
+
+          curl -X POST "https://open.feishu.cn/open-apis/bot/v2/hook/cadf8f3a-c82e-46ee-98b8-7623f2789098" \
+          -H "Content-Type: application/json" \
+          -d "{
+            \"msg_type\": \"text\",
+            \"content\": {
+              \"text\": \"$MESSAGE\"
+            }
+          }"
