@@ -1,4 +1,4 @@
-name: Job Info and Feishu Notification
+name: "Test Notification"
 
 on:
   workflow_dispatch:  # 允许手动触发
