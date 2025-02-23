@@ -1,9 +1,6 @@
 name: Job Info and Feishu Notification
 
 on:
-  push:
-    branches:
-      - main  # 触发条件：当 push 到 main 分支时执行
   workflow_dispatch:  # 允许手动触发
     inputs:
         environment:
